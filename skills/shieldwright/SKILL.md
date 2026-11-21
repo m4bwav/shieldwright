@@ -32,3 +32,7 @@ Keep one person's code, accounts, machines and family safe, and walk them throug
 In an incident, act first and explain after: give step 1 at once, then the rest in order. Ask what has already been done before repeating it.
 
 Neighbours: Dependabot and PR triage are everkeep; Windows shell and process quirks are quirkwright; installing gitleaks or gh is evergreen-setup.
+
+## Maintenance
+
+Evergreen unit at the repository root: `evergreen.json`, RESEARCH.md, CHANGELOG.md, LEARNINGS.md, TESTS.md (evals in `evals/`). Refresh every 30 days; check volatile facts (GitHub endpoints, filter-repo flags, BitLocker values) against their docs before relying on them.
