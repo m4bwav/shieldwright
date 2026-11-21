@@ -1,0 +1,16 @@
+{
+  "name": "shieldwright",
+  "owner": {
+    "name": "Mark Rogers"
+  },
+  "metadata": {
+    "description": "Defensive security for one person and their family"
+  },
+  "plugins": [
+    {
+      "name": "shieldwright",
+      "source": "./",
+      "description": "Leaked secrets in git (find, rotate, scrub), GitHub security settings, accounts and 2FA, Windows device checks, breached-password check, incident playbooks."
+    }
+  ]
+}

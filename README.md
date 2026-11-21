@@ -8,7 +8,14 @@ Defensive only: it checks what you own and refuses attack tooling.
 
 ## Install
 
-Add this repository to a Claude Code plugin marketplace and install `shieldwright`. Needs Python 3.9+. `gh` (logged in) for the settings audit; gitleaks is used when installed.
+```
+/plugin marketplace add m4bwav/shieldwright
+/plugin install shieldwright@shieldwright
+```
+
+Needs Python 3.9+. `gh` (logged in) for the settings audit; gitleaks is used when installed.
+
+Full documentation is on the [wiki](https://github.com/m4bwav/shieldwright/wiki): getting started, every `sw.py` command, the incident playbooks, FAQ.
 
 ## Ask it
 
@@ -35,7 +42,7 @@ The agent never runs history rewrites, force-pushes or revocations itself; it pr
 
 ## Tests
 
-`python -m unittest discover -s tests`; skill evals in [evals/evals.json](evals/evals.json), results in [TESTS.md](TESTS.md).
+`python -m pytest` or `python -m unittest discover -s tests`; skill evals in [evals/evals.json](evals/evals.json), results in [TESTS.md](TESTS.md).
 
 ## License
 
