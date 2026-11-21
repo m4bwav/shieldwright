@@ -3,3 +3,4 @@
 - 2026-11-21 session 3: device, pwned, incident subcommands; hub SKILL.md + 5 references; plugin.json; scripts moved under skills/shieldwright.
 - 2026-11-21 session 4: evergreen unit, evals, furniture, 0.1.0.
 - 2026-11-21: 0.1.1 - generic-assignment rule now matches keywords inside longer names (AWS_SECRET_ACCESS_KEY); marketplace.json, pytest.ini, README wiki link; wiki written (wikiwright).
+- 2026-11-21: GitHub wiki written (9 pages), see ai-docs/notes/2026-11-21-github-wiki.md. Open bug: sw.py gh exits 0 with settings off.

@@ -1,0 +1,149 @@
+== incident
+incidents: token-in-commit, clicked-link, account-taken-over, lost-phone, ransom-note, sextortion-email
+exit 0
+== incident token-in-commit
+1. Revoke or rotate the secret at its issuer NOW (this is the fix; scrubbing is cleanup)
+2. Check the issuer's logs for use since the commit date
+3. sw.py repo PATH to find every copy and commit
+4. Close open PRs that carry the commit
+5. Owner runs: git filter-repo --sensitive-data-removal --replace-text expr.txt, count changed PRs, then git push --force --mirror origin
+6. Forks and clones cannot be cleaned; contact GitHub Support only if rotation is impossible
+7. Add a pre-commit gitleaks hook and the file to .gitignore
+== incident nope
+incidents: token-in-commit, clicked-link, account-taken-over, lost-phone, ransom-note, sextortion-email
+exit 2
+== repo demo
+engine: builtin  findings: 2
+  github-token           a4953b46a670 config.py ghp_******e5
+  generic-assignment     a4953b46a670 config.py ghp_******e5
+note: built-in rules are a floor; install gitleaks (winget install gitleaks) for full coverage
+exit 1
+{
+ "engine": "builtin",
+ "findings": [
+  {
+   "rule": "github-token",
+   "commit": "a4953b46a670",
+   "file": "config.py",
+   "match": "ghp_******e5"
+  },
+  {
+   "rule": "generic-assignment",
+   "commit": "a4953b46a670",
+   "file": "config.py",
+   "match": "ghp_******e5"
+  }
+ ]
+}
+== gh
+m4bwav/shieldwright
+  vulnerability_alerts   off
+  dependabot_alerts      off
+  secret_scanning        off
+  branch_protection      unknown
+  rulesets               none
+  workflow_token         read
+  sha_pinning_required   False
+unavailable = needs a paid plan or a public repo; off = can be switched on in Settings
+exit 0
+== device
+Microsoft Windows 11 Home
+  ok  defender realtime        True
+  ok  defender signatures age  0 days
+  ok  tamper protection        True
+  ok  firewall                 all profiles on
+  ok  last Windows update      2026-11-21
+  ??  drive encryption         not available
+  ok  UAC                      on
+  ok  SMB1 server              off
+  ok  remote desktop           off
+exit 0
+usage: sw.py [-h] {repo,gh,device,pwned,incident} ...
+
+shieldwright sw.py - defensive, read-only checks. Never prints a secret in full.
+
+sw.py repo PATH [--json]          secret scan of a git repo's history (gitleaks if installed, else built-in regex)
+sw.py gh OWNER/REPO|OWNER [--json] GitHub security settings audit via `gh api`
+sw.py device [--json]             Windows checks without admin (Defender, firewall, updates, encryption, UAC, SMB1, RDP)
+sw.py pwned                       Pwned Passwords range check; reads the password from a hidden prompt, sends 5 hex chars
+sw.py incident [NAME]             ordered checklist for an incident (no NAME lists them)
+
+positional arguments:
+  {repo,gh,device,pwned,incident}
+
+options:
+  -h, --help            show this help message and exit
+== incident clicked-link
+1. Note the time, the URL and anything typed or downloaded
+2. If a password was typed: change it from a different, known-clean device, then sign out all sessions
+3. If a file ran: sw.py device, then a Defender full scan and an offline scan
+4. Check the account's recent sign-ins, forwarding rules and recovery email and phone
+5. Turn on 2FA (passkey or app) where it is off
+== incident account-taken-over
+1. Use the provider's recovery flow from a clean device
+2. Change the password, sign out all sessions, remove unknown devices, app passwords and OAuth apps
+3. Reset recovery email and phone; check mail forwarding and filters
+4. Turn on a passkey or app-based 2FA; save new recovery codes offline
+5. Change the same password anywhere it was reused (sw.py pwned checks it)
+6. Warn contacts if it sent messages; report it to the platform
+== incident lost-phone
+1. Locate, lock or erase it from Find My Device or Find My
+2. Ask the carrier to suspend the SIM and set a SIM PIN and port-out lock
+3. Sign the phone out of email, bank and password manager from another device
+4. Move 2FA to the new phone with recovery codes; remove the old device from each account
+== incident ransom-note
+1. Disconnect the machine from the network (unplug or Wi-Fi off); do not power it off
+2. Do not pay; photograph the note
+3. From another device: change email and bank passwords, check backups are untouched
+4. Report it (US: ic3.gov; UK: Action Fraud); check nomoreransom.org for a decryptor
+5. Restore from an offline backup after a clean reinstall
+== incident sextortion-email
+1. It is almost always a bluff reusing an old breached password; do not pay or reply
+2. If the quoted password is still used anywhere, change it there (sw.py pwned)
+3. Mark it as spam; if a child or real images are involved, report to the police (US: NCMEC Take It Down)
+== aws 0.1.0
+engine: builtin  findings: 0
+note: built-in rules are a floor; install gitleaks (winget install gitleaks) for full coverage
+exit 0
+== aws 0.1.1
+engine: builtin  findings: 1
+  generic-assignment     36ab1d37341d .env wJal******CY
+note: built-in rules are a floor; install gitleaks (winget install gitleaks) for full coverage
+exit 1
+== incident clicked-link
+1. Note the time, the URL and anything typed or downloaded
+2. If a password was typed: change it from a different, known-clean device, then sign out all sessions
+3. If a file ran: sw.py device, then a Defender full scan and an offline scan
+4. Check the account's recent sign-ins, forwarding rules and recovery email and phone
+5. Turn on 2FA (passkey or app) where it is off
+== incident account-taken-over
+1. Use the provider's recovery flow from a clean device
+2. Change the password, sign out all sessions, remove unknown devices, app passwords and OAuth apps
+3. Reset recovery email and phone; check mail forwarding and filters
+4. Turn on a passkey or app-based 2FA; save new recovery codes offline
+5. Change the same password anywhere it was reused (sw.py pwned checks it)
+6. Warn contacts if it sent messages; report it to the platform
+== incident lost-phone
+1. Locate, lock or erase it from Find My Device or Find My
+2. Ask the carrier to suspend the SIM and set a SIM PIN and port-out lock
+3. Sign the phone out of email, bank and password manager from another device
+4. Move 2FA to the new phone with recovery codes; remove the old device from each account
+== incident ransom-note
+1. Disconnect the machine from the network (unplug or Wi-Fi off); do not power it off
+2. Do not pay; photograph the note
+3. From another device: change email and bank passwords, check backups are untouched
+4. Report it (US: ic3.gov; UK: Action Fraud); check nomoreransom.org for a decryptor
+5. Restore from an offline backup after a clean reinstall
+== incident sextortion-email
+1. It is almost always a bluff reusing an old breached password; do not pay or reply
+2. If the quoted password is still used anywhere, change it there (sw.py pwned)
+3. Mark it as spam; if a child or real images are involved, report to the police (US: NCMEC Take It Down)
+== aws 0.1.0
+engine: builtin  findings: 0
+note: built-in rules are a floor; install gitleaks (winget install gitleaks) for full coverage
+exit 0
+== aws 0.1.1
+engine: builtin  findings: 1
+  generic-assignment     36ab1d37341d .env wJal******CY
+note: built-in rules are a floor; install gitleaks (winget install gitleaks) for full coverage
+exit 1
