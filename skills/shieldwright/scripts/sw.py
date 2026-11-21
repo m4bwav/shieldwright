@@ -110,11 +110,15 @@ def audit_repo(full, api=gh_api):
             ep = ep.replace("{b}", (info or {}).get("default_branch", "main"))
         st, data, msg = api(f"repos/{full}{ep}")
         state = classify(st, msg)
+        warn = name in ("vulnerability_alerts", "dependabot_alerts", "secret_scanning") and state == "off"
+        if name in ("dependabot_alerts", "secret_scanning") and state == "on" and isinstance(data, list):
+            n_open = sum(1 for a in data if a.get('state') == 'open')
+            warn = n_open > 0
         if name in ("dependabot_alerts", "secret_scanning") and state == "on" and isinstance(data, list):
             state = f"on ({sum(1 for a in data if a.get('state') == 'open')} open)"
         if name == "rulesets" and state == "on" and isinstance(data, list) and not data:
             state = "none"
-        res[name] = {"state": state, "detail": msg}
+        res[name] = {"state": state, "detail": msg, "warn": warn}
     st, data, msg = api(f"repos/{full}/actions/permissions/workflow")
     perm = (data or {}).get("default_workflow_permissions") if st == 200 else None
     res["workflow_token"] = {"state": perm or classify(st, msg), "warn": perm == "write"}
@@ -323,7 +327,7 @@ def main(argv=None):
             for k, v in res.items():
                 print(f"  {k:22} {v['state']}{'  <- WARN' if v.get('warn') else ''}")
         print("unavailable = needs a paid plan or a public repo; off = can be switched on in Settings")
-    return 0
+    return 1 if any(v.get("warn") for res in report.values() for v in res.values()) else 0
 
 
 if __name__ == "__main__":

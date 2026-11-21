@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.2 (2026-11-21)
+- Fix: `sw.py gh` now exits 1 when it finds something, as the README and SKILL.md say; before it always exited 0. Vulnerability alerts, Dependabot alerts or secret scanning switched off, open alerts, and a write-default workflow token are marked WARN and count as findings. Regression tests added.
+
 ## 0.1.1 (2026-11-21)
 - Fix: the built-in scanner's generic rule now catches a keyword inside a longer name (`AWS_SECRET_ACCESS_KEY = "..."`, `db_password: '...'`, `"apiKey": "..."`, `GITHUB_TOKEN="..."`, `private_key => '...'`); before, the word-boundary check missed them. Regression tests added.
 - `.claude-plugin/marketplace.json`, so `/plugin marketplace add m4bwav/shieldwright` works.

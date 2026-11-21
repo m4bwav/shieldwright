@@ -1,6 +1,6 @@
 {
   "name": "shieldwright",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Defensive security for one person and their family: leaked secrets in git (find, rotate, scrub), GitHub security settings, accounts and 2FA, Windows device checks, breached-password check, incident playbooks. sw.py repo, gh, device, pwned, incident.",
   "skills": "./skills",
   "author": {"name": "Mark Rogers"},
