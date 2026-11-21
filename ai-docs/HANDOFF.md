@@ -5,3 +5,4 @@ Verified 2026-11-21: GitHub REST off vs unavailable by message text (see researc
 Unverified: BitLockerProtection value map (community sources), flagged in device.md.
 Session 4 (2026-11-21): evergreen unit, 4 evals (with 4/4, bare 3/4), README banner, LICENSE, SECURITY, AGENTS/CLAUDE, v0.1.0 tag + release, mark-local install. Secret/privacy scan of history clean (sw.py repo builtin: only the header-only test fixture string; grep for emails, local paths, names).
 Next: manager flips visibility, sets description/topics, makes the first wiki page. Candidate fix L-002 (generic-assignment misses AWS_SECRET_ACCESS_KEY).
+- 2026-11-21: 0.1.1 released (rule gap fixed, marketplace.json); wiki live at https://github.com/m4bwav/shieldwright/wiki (note in ai-docs/notes).
