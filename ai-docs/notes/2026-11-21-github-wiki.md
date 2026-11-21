@@ -1,11 +1,14 @@
 # GitHub wiki (2026-11-21, shieldwright 0.1.1)
 
-Wiki: https://github.com/m4bwav/shieldwright/wiki, working copy `D:/m4bwa/Claude/Projects/Ai/shieldwright.wiki` (branch master, fast-forward on top of the placeholder). Written with the wikiwright skill.
+## Summary
+How the GitHub wiki was written and verified, and how to update it.
+
+Wiki: https://github.com/m4bwav/shieldwright/wiki (local clone of the .wiki.git repo, branch master, fast-forward on top of the placeholder). Written with the wikiwright skill.
 
 Pages: Home, Getting-Started, Commands, Secret-Scanning, Incident-Playbooks, How-The-Skill-Works, FAQ, Versions-And-Upgrading, Development, _Sidebar, _Footer.
 
 ## How examples were verified
-`git archive v0.1.0 skills` into a scratch folder; ran sw.py from there: `incident` (list, each name, unknown name), `repo` on a throwaway repo with a runtime-built ghp_ token in config.py (text and --json), `gh m4bwav/shieldwright`, `device`, and `repo` on a repo with `AWS_SECRET_ACCESS_KEY = "..."` in .env under 0.1.0 (0 findings) and 0.1.1 (1 finding). Output saved in `2026-11-21-wiki-verify.out.txt` (commit hashes vary per run). `gh` and `device` blocks are marked outputs: skip (live state). `pwned` not run (needs a typed password). `wikiwright check`, `outputs` and `live` all passed (9 pages).
+`git archive v0.1.0 skills` into a scratch folder; ran sw.py from there: `incident` (list, each name, unknown name), `repo` on a throwaway repo with a runtime-built ghp_ token in config.py (text and --json), `gh m4bwav/shieldwright`, `device`, and `repo` on a repo with an `AWS_SECRET_ACCESS_KEY` line set to a dummy value in .env under 0.1.0 (0 findings) and 0.1.1 (1 finding). Output saved in `2026-11-21-wiki-verify.out.txt` (commit hashes vary per run). `gh` and `device` blocks are marked outputs: skip (live state). `pwned` not run (needs a typed password). `wikiwright check`, `outputs` and `live` all passed (9 pages).
 
 ## Facts the README lacks
 - `gh` always exits 0; `device` exits 1 on a FIX line; `pwned` exits 1 when found; unknown incident exits 2.
