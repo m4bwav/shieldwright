@@ -1,0 +1,61 @@
+{
+  "evergreen": "1.0",
+  "name": "shieldwright",
+  "kind": "plugin",
+  "main": "skills/shieldwright/SKILL.md",
+  "files": {
+    "research": "RESEARCH.md",
+    "changelog": "CHANGELOG.md",
+    "learnings": "LEARNINGS.md",
+    "tests": "TESTS.md"
+  },
+  "protocol": "plugin",
+  "source": null,
+  "topic": "Defensive personal security: leaked secrets in git, GitHub repo security settings, accounts and 2FA, Windows device checks, breached passwords, incident playbooks",
+  "tier": "moderate",
+  "interval_days": 30,
+  "last_checked": "2026-11-21",
+  "next_due": "2026-12-21",
+  "verify_at_use": false,
+  "volatile_claims": [
+    "GitHub security REST endpoints and plan availability",
+    "git filter-repo sensitive-data flags",
+    "Pwned Passwords API",
+    "BitLockerProtection value map",
+    "account recovery URLs"
+  ],
+  "contradiction": null,
+  "events": [],
+  "streak": {
+    "quiet": 0,
+    "pinned_min": 0,
+    "pinned_max": 0,
+    "vau_quiet": 0
+  },
+  "history": [
+    {
+      "date": "2026-11-21",
+      "m": null,
+      "interval_after": 30,
+      "note": "created"
+    }
+  ],
+  "counts": {
+    "learnings": 3,
+    "changes": 1,
+    "research": 1,
+    "tests": 1
+  },
+  "consolidate_every": 25,
+  "tests": {
+    "last_run": "2026-11-21",
+    "harness": "evergreen-tester subagents",
+    "env": "windows",
+    "cases": 4,
+    "passed": 4,
+    "failed": 0,
+    "failing": [],
+    "last_failure": null,
+    "research_after_days": null
+  }
+}
