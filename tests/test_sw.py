@@ -1,6 +1,6 @@
 import os, subprocess, sys, tempfile, unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "skills", "shieldwright", "scripts"))
 import sw  # noqa: E402
 
 FAKE_GH = "ghp_" + "a1B2c3D4e5" * 4  # built at runtime so this file holds no literal token
@@ -66,3 +66,34 @@ class Gh(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Device(unittest.TestCase):
+    def test_findings(self):
+        raw = {"defender": {"realtime": True, "sig_age_days": 9, "tamper": True},
+               "firewall": [{"name": "Public", "enabled": False}], "last_update": "2026-11-01",
+               "bitlocker": 2, "uac": 1, "smb1": 1, "rdp_deny": 0}
+        f = {c: ok for c, _, ok in sw.device_findings(raw)}
+        self.assertFalse(f["defender signatures age"]); self.assertFalse(f["firewall"])
+        self.assertFalse(f["drive encryption"]); self.assertFalse(f["SMB1 server"]); self.assertFalse(f["remote desktop"])
+        self.assertTrue(f["UAC"])
+
+    def test_unknowns_not_failures(self):
+        f = {c: ok for c, _, ok in sw.device_findings({"defender": "unavailable", "bitlocker": 0, "uac": 1, "rdp_deny": 1})}
+        self.assertIsNone(f["defender"]); self.assertIsNone(f["drive encryption"])
+
+
+class Pwned(unittest.TestCase):
+    def test_only_prefix_sent(self):
+        sent = []
+        body = "1E4C9B93F3F0682250B6CF8331B7EE68FD8:3\r\n0000000000000000000000000000000000A:1"
+        n = sw.pwned_count("password", fetch=lambda pre: sent.append(pre) or body)
+        self.assertEqual((sent, n), (["5BAA6"], 3))
+        self.assertEqual(sw.pwned_count("not-in-list-xyz", fetch=lambda pre: body), 0)
+
+
+class Incident(unittest.TestCase):
+    def test_listing_and_unknown(self):
+        self.assertEqual(sw.main(["incident"]), 0)
+        self.assertEqual(sw.main(["incident", "nope"]), 2)
+        self.assertEqual(sw.main(["incident", "token-in-commit"]), 0)
