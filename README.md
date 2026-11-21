@@ -28,7 +28,7 @@ Full documentation is on the [wiki](https://github.com/m4bwav/shieldwright/wiki)
 
 ## sw.py
 
-Standard library only, read-only. Exit 1 means findings.
+Standard library only, read-only. Exit 1 means findings (for `gh`: vulnerability alerts, Dependabot alerts or secret scanning off, open alerts, or a write-default workflow token; each is marked WARN).
 
 | Command | Does |
 |---|---|

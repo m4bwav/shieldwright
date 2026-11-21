@@ -67,6 +67,20 @@ class Gh(unittest.TestCase):
         self.assertEqual(r["branch_protection"]["state"], "unavailable")
         self.assertEqual(r["rulesets"]["state"], "none")
         self.assertTrue(r["workflow_token"]["warn"])
+        self.assertTrue(r["secret_scanning"]["warn"])
+        self.assertTrue(r["dependabot_alerts"]["warn"])
+        self.assertFalse(r["vulnerability_alerts"]["warn"])
+        self.assertFalse(r["branch_protection"]["warn"])
+
+    def test_gh_exit_codes(self):
+        from unittest import mock
+        ok = {"vulnerability_alerts": {"state": "on", "warn": False}, "workflow_token": {"state": "read", "warn": False}}
+        bad = {"secret_scanning": {"state": "off", "warn": True}}
+        with mock.patch.object(sw.shutil, "which", return_value="gh"), mock.patch("sys.stdout"):
+            with mock.patch.object(sw, "audit_repo", return_value=ok):
+                self.assertEqual(sw.main(["gh", "o/r"]), 0)
+            with mock.patch.object(sw, "audit_repo", return_value=bad):
+                self.assertEqual(sw.main(["gh", "o/r"]), 1)
 
     def test_workflow_findings(self):
         sha = "a" * 40

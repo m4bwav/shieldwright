@@ -15,7 +15,7 @@ Keep one person's code, accounts, machines and family safe, and walk them throug
 4. **The owner runs destructive steps.** `git filter-repo`, force-push, revoking tokens, wiping a device and changing account settings are printed as commands or steps; the agent runs one only on explicit go-ahead in this conversation.
 5. **Unavailable is not off.** A GitHub feature that needs a paid plan is reported as unavailable, never as switched off.
 
-`SW` below means `python "<this folder>/scripts/sw.py"` (stdlib, Python 3.9+). Exit 1 means findings.
+`SW` below means `python "<this folder>/scripts/sw.py"` (stdlib, Python 3.9+). Exit 1 means findings; for `gh` that is any line marked WARN (alert features off, open alerts, write-default workflow token).
 
 ## Routes
 
