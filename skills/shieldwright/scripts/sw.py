@@ -20,7 +20,10 @@ RULES = [
     ("stripe-key", re.compile(r"\b((?:sk|rk)_live_[A-Za-z0-9]{20,})\b")),
     ("npm-token", re.compile(r"\b(npm_[A-Za-z0-9]{36})\b")),
     ("private-key", re.compile(r"(-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY(?: BLOCK)?-----)")),
-    ("generic-assignment", re.compile(r"(?i)\b(?:password|passwd|secret|api_?key|token)\b\s*[:=]\s*['\"]([^'\"\s]{12,})['\"]")),
+    # The keyword may sit inside a longer name (AWS_SECRET_ACCESS_KEY, db_password, "apiKey"), quoted or not.
+    ("generic-assignment", re.compile(
+        r"(?i)\b[\w.-]*(?:password|passwd|pwd|secret|api_?key|access_?key|private_?key|auth_?key|token|credential)s?[\w.-]*['\"]?"
+        r"\s*(?::=|=>|[:=])\s*['\"]([^'\"\s]{12,})['\"]")),
 ]
 
 

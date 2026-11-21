@@ -13,6 +13,17 @@ class Scan(unittest.TestCase):
         self.assertTrue(any(x["rule"] == "github-token" and x["file"] == "app.py" for x in f))
         self.assertNotIn(FAKE_GH, repr(f))
 
+    def test_key_assignments_inside_longer_names(self):
+        val = "wJalrXUtnFEMI" + "K7MDENGbPxRfiCY"  # built at runtime
+        for line in (f'AWS_SECRET_ACCESS_KEY = "{val}"', f"db_password: '{val}'",
+                     f'"apiKey": "{val}"', f'export GITHUB_TOKEN="{val}"', f"private_key => '{val}'"):
+            f = sw.scan_text(f"commit 1\n+++ b/x\n+{line}\n")
+            self.assertTrue(any(x["rule"] == "generic-assignment" for x in f), line)
+            self.assertNotIn(val, repr(f))
+
+    def test_short_or_unquoted_values_ignored(self):
+        self.assertEqual(sw.scan_text("commit 1\n+++ b/x\n+password = 'short'\n+token = os.environ['X']\n"), [])
+
     def test_removed_lines_ignored(self):
         self.assertEqual(sw.scan_text(f"commit 1\n+++ b/a\n-{FAKE_GH}\n"), [])
 
