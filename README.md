@@ -2,7 +2,7 @@
 
 # shieldwright
 
-Defensive security for one person and their family, as a Claude Code plugin. It finds secrets leaked in your git history and walks you through rotating and scrubbing them, audits your GitHub repos' security settings, checks a Windows PC, tells you whether a password is in a breach without the password leaving your machine, and gives ordered playbooks for "I think I got hacked".
+Defensive security for one person and their family, as an agent plugin. It finds secrets leaked in your git history and walks you through rotating and scrubbing them, audits your GitHub repos' security settings, checks a Windows PC, tells you whether a password is in a breach without the password leaving your machine, and gives ordered playbooks for "I think I got hacked".
 
 Defensive only: it checks what you own and refuses attack tooling.
 
